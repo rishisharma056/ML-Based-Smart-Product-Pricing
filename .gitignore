@@ -1,0 +1,55 @@
+#Python Virtual Environment
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+.eggs/
+dist/
+build/
+
+#Datasets and models
+datasets/
+models/
+*.h5
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.tflite
+*.pb
+*.sav
+*.joblib
+*.pkl
+*.npz
+*.npy
+*.csv
+*.tsv
+*.json
+*.zip
+*.tar.gz
+*.tar
+
+#Results and logs
+results/
+logs/
+
+#Cross-Validation and checkpoints
+catboost_info/
+lightgbm_model.txt
+xgboost_model.json
+xgboost_model.bin
+*.checkpoint
+*.log
+*.out
+*.err
+*.log.*
+*.out.*
+*.err.*
+*.ckpt
+*.meta
+
+#Any CSV files
+*.csv
