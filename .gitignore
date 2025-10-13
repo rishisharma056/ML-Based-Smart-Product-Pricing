@@ -11,7 +11,8 @@ dist/
 build/
 
 #Datasets and models
-datasets/
+dataset/
+images/
 models/
 *.h5
 *.ckpt
