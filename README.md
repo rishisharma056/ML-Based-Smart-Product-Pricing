@@ -83,10 +83,10 @@ The final pipeline consists of:
 ### 4.2 `clip_feature.py` Validation Results
 - **SMAPE:** 56.402
 
-- **Performance Notes:**
-    - Ensemble models consistently outperformed individual regressors.
-    - TF-IDF–based models outperformed BERT-style semantic embeddings.
-    - Image-based features provided marginal or inconsistent improvement.
+### Performance Notes:
+- Ensemble models consistently outperformed individual regressors.
+- TF-IDF–based models outperformed BERT-style semantic embeddings.
+- Image-based features provided marginal or inconsistent improvement.
 
 
 ## 5. Conclusion
