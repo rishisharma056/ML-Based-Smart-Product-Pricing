@@ -56,3 +56,9 @@ git checkout Completed
 2. **dataset/test.csv:** Test file without output labels (`price`). Generate predictions using your model/solution on this file's data and format the output file to match sample_test_out.csv
 3. **dataset/sample_test.csv:** Sample test input file.
 4. **dataset/sample_test_out.csv:** Sample outputs for sample_test.csv. The output for test.csv must be formatted in the exact same way. Note: The predictions in the file might not be correct
+
+### Note
+
+Due to file size constraints, the training and test datasets are not included in this repository.
+
+
