@@ -32,12 +32,12 @@ def calculate_smape(y_true, y_pred):
 # ============================================================================
 
 print("\n Loading CLIP features...")
-X_train = pd.read_pickle("dataset/train_features_clip.pkl")
-X_test = pd.read_pickle("dataset/test_features_clip.pkl")
-y_train = np.load("dataset/y_train.npy")
-test_ids = np.load("dataset/test_ids.npy")
+X_train = pd.read_pickle("../dataset/train_features_clip.pkl")
+X_test = pd.read_pickle("../dataset/test_features_clip.pkl")
+y_train = np.load("../dataset/y_train.npy")
+test_ids = np.load("../dataset/test_ids.npy")
 
-print(f"✅ Train: {X_train.shape} | Test: {X_test.shape}")
+print(f" Train: {X_train.shape} | Test: {X_test.shape}")
 print("   Features breakdown:")
 
 # Count feature types
@@ -249,7 +249,7 @@ print("\n Saved: results/test_predictions_clip.csv")
 # SAVE MODELS
 # ============================================================================
 
-print("\n💾 Saving models...")
+print("\n Saving models...")
 os.makedirs("models/saved_models", exist_ok=True)
 
 with open("models/saved_models/lightgbm_models_clip.pkl", "wb") as f:

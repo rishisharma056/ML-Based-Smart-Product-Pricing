@@ -1,11 +1,3 @@
-"""
-Feature Quality Validator
-Checks the quality and validity of extracted features
-
-Run after feature_engineering.py:
-    python phase2_features/feature_validator.py
-"""
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -22,14 +14,14 @@ print("=" * 80)
 # LOAD FEATURES
 # ============================================================================
 
-print("\n📂 Loading features...")
-train_features = pd.read_pickle("dataset/train_features.pkl")
-test_features = pd.read_pickle("dataset/test_features.pkl")
-y_train = np.load("dataset/y_train.npy")
+print("\n Loading features...")
+train_features = pd.read_pickle("../dataset/train_features.pkl")
+test_features = pd.read_pickle("../dataset/test_features.pkl")
+y_train = np.load("../dataset/y_train.npy")
 
-print(f"✅ Train features: {train_features.shape}")
-print(f"✅ Test features: {test_features.shape}")
-print(f"✅ Target: {y_train.shape}")
+print(f" Train features: {train_features.shape}")
+print(f" Test features: {test_features.shape}")
+print(f" Target: {y_train.shape}")
 
 # ============================================================================
 # CHECK 1: BASIC VALIDATION
@@ -43,43 +35,43 @@ print("=" * 80)
 train_nan = train_features.isna().sum().sum()
 test_nan = test_features.isna().sum().sum()
 
-print("\n❓ NaN values:")
+print("\n NaN values:")
 print(f"   Train: {train_nan}")
 print(f"   Test: {test_nan}")
 
 if train_nan > 0 or test_nan > 0:
-    print("   ❌ FAIL: NaN values detected!")
+    print("    FAIL: NaN values detected!")
 else:
-    print("   ✅ PASS: No NaN values")
+    print("    PASS: No NaN values")
 
 # Check for inf
 train_inf = np.isinf(train_features.select_dtypes(include=[np.number])).sum().sum()
 test_inf = np.isinf(test_features.select_dtypes(include=[np.number])).sum().sum()
 
-print("\n❓ Inf values:")
+print("\n Inf values:")
 print(f"   Train: {train_inf}")
 print(f"   Test: {test_inf}")
 
 if train_inf > 0 or test_inf > 0:
-    print("   ❌ FAIL: Inf values detected!")
+    print("    FAIL: Inf values detected!")
 else:
-    print("   ✅ PASS: No inf values")
+    print("    PASS: No inf values")
 
 # Check shapes match
-print("\n❓ Feature dimensions:")
+print("\n Feature dimensions:")
 print(f"   Train: {train_features.shape[1]} features")
 print(f"   Test: {test_features.shape[1]} features")
 
 if train_features.shape[1] == test_features.shape[1]:
-    print("   ✅ PASS: Train and test have same features")
+    print("    PASS: Train and test have same features")
 else:
-    print("   ❌ FAIL: Feature mismatch!")
+    print("    FAIL: Feature mismatch!")
 
 # Check column names match
 if list(train_features.columns) == list(test_features.columns):
-    print("   ✅ PASS: Column names match")
+    print("    PASS: Column names match")
 else:
-    print("   ❌ FAIL: Column names don't match!")
+    print("    FAIL: Column names don't match!")
 
 # ============================================================================
 # CHECK 2: FEATURE VARIANCE
@@ -95,16 +87,16 @@ zero_var = train_var[train_var == 0]
 
 print(f"\n❓ Zero variance features: {len(zero_var)}")
 if len(zero_var) > 0:
-    print("   ⚠️ WARNING: Features with zero variance detected")
+    print("    WARNING: Features with zero variance detected")
     print(f"   Features: {list(zero_var.index)}")
 else:
-    print("   ✅ PASS: All features have variance")
+    print("    PASS: All features have variance")
 
 # Check for low variance features (< 0.01)
 low_var = train_var[(train_var > 0) & (train_var < 0.01)]
-print(f"\n❓ Low variance features (var < 0.01): {len(low_var)}")
+print(f"\n Low variance features (var < 0.01): {len(low_var)}")
 if len(low_var) > 10:
-    print(f"   ⚠️ WARNING: {len(low_var)} features have very low variance")
+    print(f"    WARNING: {len(low_var)} features have very low variance")
     print(f"   Top 5: {list(low_var.head().index)}")
 
 # ============================================================================
@@ -115,7 +107,7 @@ print("\n" + "=" * 80)
 print("CHECK 3: FEATURE-TARGET CORRELATIONS")
 print("=" * 80)
 
-print("\n📊 Calculating correlations...")
+print("\n Calculating correlations...")
 correlations = {}
 for col in train_features.columns:
     corr = np.corrcoef(train_features[col], y_train)[0, 1]
@@ -125,23 +117,23 @@ for col in train_features.columns:
 # Sort by correlation
 corr_sorted = sorted(correlations.items(), key=lambda x: x[1], reverse=True)
 
-print("\n🥇 Top 20 Features by Correlation with Price:")
+print("\n Top 20 Features by Correlation with Price:")
 for i, (feat, corr) in enumerate(corr_sorted[:20], 1):
     strength = "🔥" if corr > 0.1 else "✅" if corr > 0.05 else "⚪"
     print(f"{i:2d}. {feat:30s}: {corr:.4f} {strength}")
 
-print("\n📉 Bottom 10 Features by Correlation:")
+print("\n Bottom 10 Features by Correlation:")
 for i, (feat, corr) in enumerate(corr_sorted[-10:], 1):
     print(f"{i:2d}. {feat:30s}: {corr:.4f}")
 
 # Check if we have good predictors
 top_corr = corr_sorted[0][1] if corr_sorted else 0
 if top_corr > 0.1:
-    print("\n✅ PASS: Have features with correlation > 0.1")
+    print("\n PASS: Have features with correlation > 0.1")
 elif top_corr > 0.05:
-    print(f"\n⚠️ WARNING: Best correlation is {top_corr:.4f} (weak)")
+    print(f"\n WARNING: Best correlation is {top_corr:.4f} (weak)")
 else:
-    print("\n❌ FAIL: No strong correlations found!")
+    print("\n FAIL: No strong correlations found!")
 
 # ============================================================================
 # CHECK 4: FEATURE DISTRIBUTIONS
@@ -161,7 +153,7 @@ check_features = [
     "category_encoded",
 ]
 
-print("\n📊 Distribution statistics:")
+print("\n Distribution statistics:")
 for feat in check_features:
     if feat in train_features.columns:
         print(f"\n{feat}:")
@@ -179,7 +171,7 @@ print("\n" + "=" * 80)
 print("CHECK 5: TRAIN-TEST DISTRIBUTION SIMILARITY")
 print("=" * 80)
 
-print("\n📊 Comparing train vs test distributions...")
+print("\n Comparing train vs test distributions...")
 
 # Compare key features
 distribution_checks = []
@@ -200,7 +192,7 @@ print("\n   Feature Distribution Comparison:")
 print(f"   {'Feature':<25} {'KS Stat':<12} {'P-value':<12} {'Status'}")
 print("   " + "-" * 60)
 for check in distribution_checks:
-    status = "✅ Similar" if check["similar"] else "⚠️ Different"
+    status = " Similar" if check["similar"] else " Different"
     print(
         f"   {check['feature']:<25} {check['ks_statistic']:<12.4f} {check['p_value']:<12.4f} {status}"
     )
@@ -208,11 +200,11 @@ for check in distribution_checks:
 similar_count = sum(1 for c in distribution_checks if c["similar"])
 if similar_count >= len(distribution_checks) * 0.7:
     print(
-        f"\n✅ PASS: {similar_count}/{len(distribution_checks)} features have similar distributions"
+        f"\n PASS: {similar_count}/{len(distribution_checks)} features have similar distributions"
     )
 else:
     print(
-        f"\n⚠️ WARNING: Only {similar_count}/{len(distribution_checks)} features similar"
+        f"\n WARNING: Only {similar_count}/{len(distribution_checks)} features similar"
     )
 
 # ============================================================================
@@ -223,7 +215,7 @@ print("\n" + "=" * 80)
 print("CHECK 6: MULTICOLLINEARITY CHECK")
 print("=" * 80)
 
-print("\n📊 Checking for highly correlated features...")
+print("\n Checking for highly correlated features...")
 
 # Sample of features to check (skip TF-IDF for speed)
 non_tfidf_cols = [col for col in train_features.columns if not col.startswith("tfidf_")]
@@ -249,7 +241,7 @@ for i in range(len(corr_matrix.columns)):
             )
 
 if len(high_corr_pairs) > 0:
-    print(f"\n⚠️ WARNING: Found {len(high_corr_pairs)} highly correlated pairs (>0.9)")
+    print(f"\n WARNING: Found {len(high_corr_pairs)} highly correlated pairs (>0.9)")
     print("\n   Top 5 pairs:")
     for pair in high_corr_pairs[:5]:
         print(
@@ -257,7 +249,7 @@ if len(high_corr_pairs) > 0:
         )
     print("\n   Consider removing one from each pair")
 else:
-    print("\n✅ PASS: No severe multicollinearity detected")
+    print("\n PASS: No severe multicollinearity detected")
 
 # ============================================================================
 # CHECK 7: FEATURE SCALING
@@ -267,7 +259,7 @@ print("\n" + "=" * 80)
 print("CHECK 7: FEATURE SCALING CHECK")
 print("=" * 80)
 
-print("\n📊 Checking feature scales...")
+print("\n Checking feature scales...")
 
 # Check if features are on very different scales
 feature_ranges = []
@@ -288,11 +280,11 @@ max_range = max(item["range"] for item in feature_ranges)
 min_range = min(item["range"] for item in feature_ranges if item["range"] > 0)
 
 if max_range / min_range > 1000:
-    print("\n⚠️ WARNING: Large scale differences detected")
+    print("\n WARNING: Large scale differences detected")
     print(f"   Ratio: {max_range / min_range:.0f}x")
     print("   Consider scaling for some models (not needed for tree-based)")
 else:
-    print("\n✅ PASS: Feature scales are reasonable for tree-based models")
+    print("\n PASS: Feature scales are reasonable for tree-based models")
 
 # ============================================================================
 # CHECK 8: VISUALIZATION
@@ -302,7 +294,7 @@ print("\n" + "=" * 80)
 print("CHECK 8: GENERATING VALIDATION PLOTS")
 print("=" * 80)
 
-print("\n📊 Creating validation visualizations...")
+print("\n Creating validation visualizations...")
 
 fig, axes = plt.subplots(2, 2, figsize=(15, 12))
 
@@ -382,12 +374,8 @@ if "category_encoded" in train_features.columns:
     axes[1, 1].grid(axis="y", alpha=0.3)
 
 plt.tight_layout()
-plt.savefig(
-    "results/visualizations/feature_validation.png", dpi=300, bbox_inches="tight"
-)
 plt.close()
 
-print("✅ Saved results/visualizations/feature_validation.png")
 
 # ============================================================================
 # FINAL SUMMARY
@@ -400,70 +388,70 @@ print("=" * 80)
 checks_passed = 0
 total_checks = 8
 
-print("\n✅ Quality Checks:")
+print("\n Quality Checks:")
 
 # Check 1: No NaN/Inf
 if train_nan == 0 and test_nan == 0 and train_inf == 0 and test_inf == 0:
-    print("   ✅ No NaN or Inf values")
+    print("    No NaN or Inf values")
     checks_passed += 1
 else:
-    print("   ❌ Data quality issues detected")
+    print("    Data quality issues detected")
 
 # Check 2: Feature count
 if train_features.shape[1] == test_features.shape[1]:
-    print("   ✅ Feature dimensions match")
+    print("    Feature dimensions match")
     checks_passed += 1
 else:
-    print("   ❌ Feature dimension mismatch")
+    print("    Feature dimension mismatch")
 
 # Check 3: Zero variance
 if len(zero_var) == 0:
-    print("   ✅ All features have variance")
+    print("    All features have variance")
     checks_passed += 1
 else:
-    print(f"   ⚠️ {len(zero_var)} features with zero variance")
+    print(f"    {len(zero_var)} features with zero variance")
 
 # Check 4: Correlations
 if top_corr > 0.1:
-    print(f"   ✅ Strong predictors found (max corr: {top_corr:.4f})")
+    print(f"    Strong predictors found (max corr: {top_corr:.4f})")
     checks_passed += 1
 elif top_corr > 0.05:
-    print(f"   ⚠️ Moderate predictors (max corr: {top_corr:.4f})")
+    print(f"    Moderate predictors (max corr: {top_corr:.4f})")
     checks_passed += 0.5
 else:
-    print(f"   ❌ Weak correlations (max corr: {top_corr:.4f})")
+    print(f"    Weak correlations (max corr: {top_corr:.4f})")
 
 # Check 5: Train-test similarity
 if similar_count >= len(distribution_checks) * 0.7:
-    print("   ✅ Train-test distributions similar")
+    print("    Train-test distributions similar")
     checks_passed += 1
 else:
-    print("   ⚠️ Train-test distribution differences detected")
+    print("    Train-test distribution differences detected")
 
 # Check 6: Multicollinearity
 if len(high_corr_pairs) < 5:
-    print("   ✅ Low multicollinearity")
+    print("    Low multicollinearity")
     checks_passed += 1
 else:
-    print(f"   ⚠️ {len(high_corr_pairs)} highly correlated pairs")
+    print(f"    {len(high_corr_pairs)} highly correlated pairs")
 
 # Check 7: Feature scales
 if max_range / min_range < 1000:
-    print("   ✅ Reasonable feature scales")
+    print("    Reasonable feature scales")
     checks_passed += 1
 else:
-    print("   ⚠️ Large scale differences")
+    print("    Large scale differences")
 
 # Check 8: Visualization
-print("   ✅ Validation plots generated")
+print("    Validation plots generated")
 checks_passed += 1
 
-print(f"\n📊 Overall Score: {checks_passed}/{total_checks} checks passed")
+print(f"\n Overall Score: {checks_passed}/{total_checks} checks passed")
 
 if checks_passed >= 7:
     print("\n🎉 VALIDATION PASSED - Features are ready for modeling!")
     print("\n🚀 Next Steps:")
-    print("   1. cd phase3_modeling")
+    print("   1. cd modeling")
     print("   2. python train_baseline.py")
     print("   3. Start model training")
 elif checks_passed >= 5:

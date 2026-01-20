@@ -1,18 +1,3 @@
-"""
-ML Challenge 2025 - Feature Engineering Pipeline
-Extracts comprehensive text features from catalog content
-
-Run from project root:
-    python features/feature_engineering.py
-
-Outputs:
-    - models/feature_extractors/tfidf_vectorizer.pkl
-    - models/feature_extractors/category_encoder.pkl
-    - dataset/train_features.pkl
-    - dataset/test_features.pkl
-    - features/feature_names.txt
-"""
-
 import pandas as pd
 import numpy as np
 import re
@@ -53,11 +38,11 @@ print("PART 1: LOADING DATA")
 print("=" * 80)
 
 print("\nLoading training data...")
-train = pd.read_csv("dataset/train_enriched.csv")
+train = pd.read_csv("../dataset/train_enriched.csv")
 print(f"Training set: {train.shape}")
 
 print("\nLoading test data...")
-test = pd.read_csv("dataset/test.csv")
+test = pd.read_csv("../dataset/test.csv")
 print(f"Test set: {test.shape}")
 
 # Save target separately
