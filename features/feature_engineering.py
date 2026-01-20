@@ -38,11 +38,11 @@ print("PART 1: LOADING DATA")
 print("=" * 80)
 
 print("\nLoading training data...")
-train = pd.read_csv("../dataset/train_enriched.csv")
+train = pd.read_csv("dataset/train.csv")
 print(f"Training set: {train.shape}")
 
 print("\nLoading test data...")
-test = pd.read_csv("../dataset/test.csv")
+test = pd.read_csv("dataset/test.csv")
 print(f"Test set: {test.shape}")
 
 # Save target separately

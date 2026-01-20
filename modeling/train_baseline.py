@@ -466,11 +466,7 @@ plt.title(
     fontsize=14,
 )
 plt.tight_layout()
-plt.savefig(
-    "results/visualizations/feature_importance.png", dpi=300, bbox_inches="tight"
-)
 plt.close()
-print(" Saved results/visualizations/feature_importance.png")
 
 # ============================================================================
 # SAVE MODELS
@@ -573,7 +569,6 @@ print("   ✓ models/saved_models/catboost_models.pkl")
 print("   ✓ results/cv_scores.csv")
 print("   ✓ results/feature_importance.csv")
 print("   ✓ results/test_predictions.csv")
-print("   ✓ results/visualizations/feature_importance.png")
 
 if best_smape < 0.25:
     print("\n EXCELLENT! SMAPE < 0.25 achieved!")

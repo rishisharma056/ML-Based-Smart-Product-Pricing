@@ -15,9 +15,9 @@ print("=" * 80)
 # ============================================================================
 
 print("\n Loading features...")
-train_features = pd.read_pickle("../dataset/train_features.pkl")
-test_features = pd.read_pickle("../dataset/test_features.pkl")
-y_train = np.load("../dataset/y_train.npy")
+train_features = pd.read_pickle("dataset/train_features.pkl")
+test_features = pd.read_pickle("dataset/test_features.pkl")
+y_train = np.load("dataset/y_train.npy")
 
 print(f" Train features: {train_features.shape}")
 print(f" Test features: {test_features.shape}")

@@ -1,11 +1,5 @@
 # ML Challenge 2025: Smart Product Pricing Solution Template
 
-**Team Name:** [Tarnished]  
-**Team Members:** [Aman Sharma, Rishi Sharma, Aishwarya Prudhvi Raj Badugu, Pabbathi Varshene]  
-**Submission Date:** [Date]
-
----
-
 ## 1. Executive Summary
 We developed a **text-centric price prediction system** using extensive feature engineering on product metadata and an ensemble of gradient boosting regression models. Systematic experimentation showed that **TF-IDF–based lexical features consistently outperformed semantic and multimodal approaches**, achieving a best validation **SMAPE** of **0.5674**. Image-based and transformer-based methods provided minimal additional benefit relative to their complexity.
 
@@ -72,12 +66,23 @@ The final pipeline consists of:
 
 ## 4. Model Performance
 
-### 4.1 Validation Results
-- **SMAPE Score: 0.5674**
-- **Other Metrics:** 
-    - **MAE:**
-    - **RMSE:**
-    - **R2:**
+### 4.1 `feature_engineering.py` Validation Results
+- **LightGBM Cross-Validation**
+    - **SMAPE:** 0.5749 ± 0.0052
+    - **MAE:** $12.99 ± $0.18
+    - **RMSE:** $29.92
+- **XGBOOST Cross-Validation** 
+    - **SMAPE:** 0.5779 ± 0.0050
+    - **MAE:** $13.05 ± $0.18
+    - **RMSE:** $29.97
+- **CATBOOST Cross-Validation** 
+    - **SMAPE:** 0.5762 ± 0.0068
+    - **MAE:** $13.12 ± $0.23
+    - **RMSE:** $31.23
+
+### 4.2 `clip_feature.py` Validation Results
+- **SMAPE:** 56.402
+
 - **Performance Notes:**
     - Ensemble models consistently outperformed individual regressors.
     - TF-IDF–based models outperformed BERT-style semantic embeddings.
