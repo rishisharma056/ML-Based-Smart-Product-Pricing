@@ -6,7 +6,7 @@ Amazon ML Challenge is a two-stage competition where students from all engineeri
 
 ### Eligibility and Team Rules:
 
-- This competition is open to all students pursuing PhD/ M.E./M.Tech./ M.S./MS by Research/B.E./B.Tech. full-time degree across all          engineering campuses in India. 
+- This competition is open to all students pursuing PhD/ M.E./M.Tech./ M.S./MS by Research/B.E./B.Tech. full-time degree across all engineering campuses in India. 
 - Graduation Year: 2026 or 2027
 - Each team must consist of a minimum of 3 and a maximum of 4 members.
 - Each team must have a team leader.
@@ -26,7 +26,7 @@ Based on the leaderboard results and the solution presented in the document at t
 
 This repository has two branches. 
 
-1. **Problem-Statement-Template** This is the initial file structure. You can find the problem statement at (ProblemStatement.md)
+1. **Problem-Statement-Template** This is the initial file structure. You can find the problem statement at (`ProblemStatement.md`)
 2. **Completed** This branch contains the solution we worked on. 
 
 ## Want to work on this problem statement?
@@ -57,8 +57,18 @@ git checkout Completed
 3. **dataset/sample_test.csv:** Sample test input file.
 4. **dataset/sample_test_out.csv:** Sample outputs for sample_test.csv. The output for test.csv must be formatted in the exact same way. Note: The predictions in the file might not be correct
 
-### Note
+## Note:
 
-Due to file size constraints, the training and test datasets are not included in this repository.
+The full training (`train.csv`) and test (`test.csv`) datasets used in this
+project were provided as part of the Smart Product Pricing Challenge.
+
+The competition portal is now closed, and the datasets are no longer publicly
+accessible. As a result, the full datasets are not included in this repository
+and cannot be redistributed.
+
+This repository includes the officially provided sample files
+(`sample_test.csv` and `sample_test_out.csv`) to demonstrate the data schema
+and expected output format.
+
 
 
