@@ -1,4 +1,4 @@
-# ML Challenge 2025: Smart Product Pricing Solution Template
+# ML Challenge 2025: Smart Product Pricing
 
 ## 1. Executive Summary
 We developed a **text-centric price prediction system** using extensive feature engineering on product metadata and an ensemble of gradient boosting regression models. Systematic experimentation showed that **TF-IDF–based lexical features consistently outperformed semantic and multimodal approaches**, achieving a best validation **SMAPE** of **0.5674**. Image-based and transformer-based methods provided minimal additional benefit relative to their complexity.
